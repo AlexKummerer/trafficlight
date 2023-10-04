@@ -57,17 +57,33 @@ export const sideTrafficStates: any = {
   },
 };
 
+export const pedestrationTrafficStates: any = {
+  red: {
+    duration: null,
+    next: "green",
+    color: TrafficState.RED,
+  },
+  green: {
+    duration: 3000,
+    next: "red",
+    color: TrafficState.GREEN,
+  },
+};
+
 const App = () => {
   const [mainCurrentColor, setMainCurrentColor] = useState(TrafficState.GREEN);
   const [nextMainState, setNextMainState] = useState("green");
   const [sideCurrentColor, setSideCurrentColor] = useState(TrafficState.RED);
   const [nextSideState, setNextSideState] = useState("red");
+  const [pedestrationCurrentColor, setPedestrationCurrentColor] = useState(
+    TrafficState.RED
+  );
+  const [nextPedestrationState, setNextPedestrationState] = useState("red");
+
   const [trafficDuration, setTrafficDuration] = useState<number | null>(null);
 
   useEffect(() => {
     const { duration, next, color } = mainTrafficStates[nextMainState];
-
-    console.log(trafficDuration, color, next);
 
     const timerId = setTimeout(
       () => {
@@ -81,7 +97,7 @@ const App = () => {
     return () => {
       clearTimeout(timerId);
     };
-  }, [mainCurrentColor, nextMainState, trafficDuration]);
+  }, [nextMainState, trafficDuration]);
 
   useEffect(() => {
     const { duration, next, color } = sideTrafficStates[nextSideState];
@@ -98,7 +114,24 @@ const App = () => {
     return () => {
       clearTimeout(timerId);
     };
-  }, [sideCurrentColor, nextSideState, trafficDuration]);
+  }, [nextSideState, trafficDuration]);
+
+  useEffect(() => {
+    const { duration, next, color } =
+      pedestrationTrafficStates[nextPedestrationState];
+    if (color === TrafficState.GREEN) {
+      const timerId = setTimeout(() => {
+        setPedestrationCurrentColor(color);
+        setNextPedestrationState(next);
+      }, duration);
+
+      return () => {
+        clearTimeout(timerId);
+      };
+    } else {
+      setPedestrationCurrentColor(color);
+    }
+  }, [nextPedestrationState]);
 
   const handleSideStreet = () => {
     if (sideCurrentColor === TrafficState.RED) {
@@ -110,24 +143,44 @@ const App = () => {
     }
   };
 
+  const handlePedestration = () => {
+    if (pedestrationCurrentColor === TrafficState.RED) {
+      if (mainCurrentColor === TrafficState.GREEN) {
+        setTrafficDuration(1000);
+        setMainCurrentColor(TrafficState.YELLOW);
+        setNextMainState("yellow");
+
+        setTimeout(() => {
+          setPedestrationCurrentColor(TrafficState.GREEN);
+          setNextPedestrationState("green");
+        }, 3000);
+      }
+    }
+  };
+
   return (
     <>
       <Container className={styles.container}>
         <div className={styles.road}>
           <div className={styles["main-stopline--bottom"]}>
-            <div className={  classNames( styles["main-traffic-light"], styles["traffic-light-bottom"]  ) }>
+            <div
+              className={classNames(
+                styles["main-traffic-light"],
+                styles["traffic-light-bottom"]
+              )}
+            >
               <div
                 className={classNames(styles.bulb, styles.red, {
                   [styles.active]:
-                  mainCurrentColor === TrafficState.RED ||
-                  mainCurrentColor === TrafficState.YELLOWRED,
+                    mainCurrentColor === TrafficState.RED ||
+                    mainCurrentColor === TrafficState.YELLOWRED,
                 })}
               />
               <div
                 className={classNames(styles.bulb, styles.yellow, {
                   [styles.active]:
-                  mainCurrentColor === TrafficState.YELLOW ||
-                  mainCurrentColor === TrafficState.YELLOWRED,
+                    mainCurrentColor === TrafficState.YELLOW ||
+                    mainCurrentColor === TrafficState.YELLOWRED,
                 })}
               />
               <div
@@ -137,21 +190,75 @@ const App = () => {
               />
             </div>
           </div>
-          <div className={styles["main-pedestrian"]}></div>
-          <div className={styles["main-stopline--top"]}>
-            <div className={ classNames( styles["main-traffic-light"], styles["traffic-light-top"]  ) }>
+          <div className={styles["main-pedestrian"]}>
+            <Button
+              onClick={handlePedestration}
+              className={styles["pedestrian-button"]}
+            >
+              {" "}
+              Fußgängerüberweg{" "}
+            </Button>
+
+            <div
+              className={classNames(
+                styles["pedestrian-traffic-light"],
+                styles["pedestrian-traffic-light-top"]
+              )}
+            >
               <div
                 className={classNames(styles.bulb, styles.red, {
                   [styles.active]:
-                  mainCurrentColor === TrafficState.RED ||
-                  mainCurrentColor === TrafficState.YELLOWRED,
+                    pedestrationCurrentColor === TrafficState.RED,
+                })}
+              />
+              <div
+                className={classNames(styles.bulb, styles.green, {
+                  [styles.active]:
+                    pedestrationCurrentColor === TrafficState.GREEN,
+                })}
+              />
+            </div>
+
+            <div
+              className={classNames(
+                styles["pedestrian-traffic-light"],
+                styles["pedestrian-traffic-light-bottom"]
+              )}
+            >
+              <div
+                className={classNames(styles.bulb, styles.red, {
+                  [styles.active]:
+                    pedestrationCurrentColor === TrafficState.RED,
+                })}
+              />
+              <div
+                className={classNames(styles.bulb, styles.green, {
+                  [styles.active]:
+                    pedestrationCurrentColor === TrafficState.GREEN,
+                })}
+              />
+            </div>
+          </div>
+
+          <div className={styles["main-stopline--top"]}>
+            <div
+              className={classNames(
+                styles["main-traffic-light"],
+                styles["traffic-light-top"]
+              )}
+            >
+              <div
+                className={classNames(styles.bulb, styles.red, {
+                  [styles.active]:
+                    mainCurrentColor === TrafficState.RED ||
+                    mainCurrentColor === TrafficState.YELLOWRED,
                 })}
               />
               <div
                 className={classNames(styles.bulb, styles.yellow, {
                   [styles.active]:
-                  mainCurrentColor === TrafficState.YELLOW ||
-                  mainCurrentColor === TrafficState.YELLOWRED,
+                    mainCurrentColor === TrafficState.YELLOW ||
+                    mainCurrentColor === TrafficState.YELLOWRED,
                 })}
               />
               <div
