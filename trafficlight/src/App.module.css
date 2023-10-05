@@ -9,7 +9,7 @@
   height: 200px !important;
   width: 100%;
   background-color: gray;
-  position: relative
+  position: relative;
 }
 
 .main-stopline--bottom {
@@ -32,9 +32,6 @@
   top: 4px;
 }
 
-
-
-
 .main-pedestrian {
   position: absolute;
   width: 50px;
@@ -53,66 +50,51 @@
   top: 33px;
 }
 
-
-
 .sideRoad {
   width: 200px;
   height: 300px;
   background-color: gray;
   position: relative;
-
 }
 
 .main-traffic-light {
   position: absolute;
   width: 20px;
-  /* Breite der Verkehrsampel */
   height: 80px;
-  /* Höhe der Verkehrsampel */
   background-color: black;
-  /* Schwarze Farbe für die Verkehrsampel */
+  left: 50%;
+  top: -90px;
+  transform: translateX(-50%);
 }
 
 .pedestrian-button {
   transform: rotate(-90deg);
   height: 100%;
   width: 100%;
-
 }
 
 .pedestrian-traffic-light {
   position: absolute;
   width: 20px;
-  /* Breite der Verkehrsampel */
   height: 55px;
-  /* Höhe der Verkehrsampel */
   background-color: black;
-  /* Schwarze Farbe für die Verkehrsampel */
 }
 
 .pedestrian-traffic-light-top {
   top: -58px;
-  /* Abstand über der Haltelinie */
   transform: rotate(180deg);
-  /* Zentrierung der Verkehrsampel horizontal */
 }
 
 .pedestrian-traffic-light-bottom {
   bottom: -65px;
   left: 32px;
-
 }
 
-/* Stil für die Verkehrsampel-Lichter der Hauptstraße */
 .pedestrian-traffic-light .bulb {
   width: 20px;
-  /* Breite der Lichter */
   height: 20px;
-  /* Höhe der Lichter */
   border-radius: 50%;
-  /* Runde Form für die Lichter */
   margin: 5px auto;
-  /* Abstand zwischen den Lichtern */
   opacity: 0.2;
 }
 
@@ -120,46 +102,29 @@
   opacity: 1;
 }
 
-/* Stil für das rote Licht der Verkehrsampel der Hauptstraße */
 .pedestrian-traffic-light .red {
   background-color: red;
-  /* Rote Farbe für das rote Licht */
 }
 
-
-/* Stil für das grüne Licht der Verkehrsampel der Hauptstraße */
 .pedestrian-traffic-light .green {
   background-color: green;
-  /* Grüne Farbe für das grüne Licht */
 }
-
-
-
 
 .traffic-light-bottom {
   top: 65px;
-  /* Abstand über der Haltelinie */
   transform: rotate(90deg);
-  /* Zentrierung der Verkehrsampel horizontal */
 }
 
 .traffic-light-top {
   top: -65px;
-  /* Abstand über der Haltelinie */
   transform: rotate(270deg);
-  /* Zentrierung der Verkehrsampel horizontal */
 }
 
-/* Stil für die Verkehrsampel-Lichter der Hauptstraße */
 .main-traffic-light .bulb {
   width: 20px;
-  /* Breite der Lichter */
   height: 20px;
-  /* Höhe der Lichter */
   border-radius: 50%;
-  /* Runde Form für die Lichter */
   margin: 5px auto;
-  /* Abstand zwischen den Lichtern */
   opacity: 0.2;
 }
 
@@ -167,50 +132,33 @@
   opacity: 1;
 }
 
-/* Stil für das rote Licht der Verkehrsampel der Hauptstraße */
 .main-traffic-light .red {
   background-color: red;
-  /* Rote Farbe für das rote Licht */
 }
 
-/* Stil für das gelbe Licht der Verkehrsampel der Hauptstraße */
 .main-traffic-light .yellow {
   background-color: yellow;
-  /* Gelbe Farbe für das gelbe Licht */
 }
 
-/* Stil für das grüne Licht der Verkehrsampel der Hauptstraße */
 .main-traffic-light .green {
   background-color: green;
-  /* Grüne Farbe für das grüne Licht */
 }
-
 
 .side-traffic-light {
   position: absolute;
   width: 20px;
-  /* Breite der Verkehrsampel */
   height: 80px;
-  /* Höhe der Verkehrsampel */
   background-color: black;
-  /* Schwarze Farbe für die Verkehrsampel */
   left: 140%;
-  /* Position in der Mitte der Haltelinie */
   top: -24px;
-  /* Abstand über der Haltelinie */
   transform: translateX(-50%);
-  /* Zentrierung der Verkehrsampel horizontal */
 }
 
 .side-traffic-light .bulb {
   width: 20px;
-  /* Breite der Lichter */
   height: 20px;
-  /* Höhe der Lichter */
   border-radius: 50%;
-  /* Runde Form für die Lichter */
   margin: 5px auto;
-  /* Abstand zwischen den Lichtern */
   opacity: 0.2;
 }
 
@@ -218,51 +166,14 @@
   opacity: 1;
 }
 
-/* Stil für das rote Licht der Verkehrsampel der Seitenstraße */
 .side-traffic-light .red {
   background-color: red;
-  /* Rote Farbe für das rote Licht */
 }
 
-/* Stil für das gelbe Licht der Verkehrsampel der Seitenstraße */
 .side-traffic-light .yellow {
   background-color: yellow;
-  /* Gelbe Farbe für das gelbe Licht */
 }
 
-/* Stil für das grüne Licht der Verkehrsampel der Seitenstraße */
 .side-traffic-light .green {
-  background-color: green;
-  /* Grüne Farbe für das grüne Licht */
-}
-
-
-.TrafficLight {
-  display: flex;
-  flex-direction: column;
-}
-
-.TrafficLight .bulb {
-  width: 64px;
-  height: 64px;
-  display: inline-block;
-  border-radius: 50%;
-  margin: 10px;
-  opacity: 0.2;
-}
-
-.TrafficLight .bulb.active {
-  opacity: 1;
-}
-
-.TrafficLight .bulb.red {
-  background-color: red;
-}
-
-.TrafficLight .bulb.yellow {
-  background-color: yellow;
-}
-
-.TrafficLight .bulb.green {
   background-color: green;
 }

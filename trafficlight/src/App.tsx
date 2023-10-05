@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./App.module.css";
-import { Box, Button, Container } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import classNames from "classnames";
-import { log } from "console";
 
 export enum TrafficState {
   RED,
@@ -70,7 +69,7 @@ export const pedestrationTrafficStates: any = {
   },
 };
 
-const App = () => {
+ const App = () => {
   const [mainCurrentColor, setMainCurrentColor] = useState(TrafficState.GREEN);
   const [nextMainState, setNextMainState] = useState("green");
   const [sideCurrentColor, setSideCurrentColor] = useState(TrafficState.RED);
@@ -101,7 +100,6 @@ const App = () => {
 
   useEffect(() => {
     const { duration, next, color } = sideTrafficStates[nextSideState];
-    // console.log(duration, color, next)
     const timerId = setTimeout(
       () => {
         setSideCurrentColor(color);
@@ -296,51 +294,6 @@ const App = () => {
           </div>
         </div>
       </Container>
-
-      {"Main Traffic Light"}
-      <Box className={styles.TrafficLight}>
-        <div
-          className={classNames(styles.bulb, styles.red, {
-            [styles.active]:
-              mainCurrentColor === TrafficState.RED ||
-              mainCurrentColor === TrafficState.YELLOWRED,
-          })}
-        />
-        <div
-          className={classNames(styles.bulb, styles.yellow, {
-            [styles.active]:
-              mainCurrentColor === TrafficState.YELLOW ||
-              mainCurrentColor === TrafficState.YELLOWRED,
-          })}
-        />
-        <div
-          className={classNames(styles.bulb, styles.green, {
-            [styles.active]: mainCurrentColor === TrafficState.GREEN,
-          })}
-        />
-      </Box>
-      {"Side Traffic Light"}
-      <Box className={styles.TrafficLight}>
-        <div
-          className={classNames(styles.bulb, styles.red, {
-            [styles.active]:
-              sideCurrentColor === TrafficState.RED ||
-              sideCurrentColor === TrafficState.YELLOWRED,
-          })}
-        />
-        <div
-          className={classNames(styles.bulb, styles.yellow, {
-            [styles.active]:
-              sideCurrentColor === TrafficState.YELLOW ||
-              sideCurrentColor === TrafficState.YELLOWRED,
-          })}
-        />
-        <div
-          className={classNames(styles.bulb, styles.green, {
-            [styles.active]: sideCurrentColor === TrafficState.GREEN,
-          })}
-        />
-      </Box>
     </>
   );
 };
